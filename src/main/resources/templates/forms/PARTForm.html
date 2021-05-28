@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>快速检测实验原始记录</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+
+<h2>南京市HIV/艾滋病筛查实验室</h2>
+<h2>快速检测实验原始记录</h2><br/>
+<div class="part-form">
+    <form action="/formExport/exportPARTForm" method="post">
+        检测项目：<input class="input-25" type="text" name="testItem" value="HIV-1/2抗体">
+        样品名称：<input class="input-25" type="text" name="sampleName" value="血清"><br/>
+        送检人群：<input class="input-75" type="text" name="patientType" value="南京市艾滋病筛查实验室"><br/>
+        检测试剂（厂商）名称：<input class="input-70" type="text" name="manufacturer" value=""><br/>
+        试剂批号：<input class="input-25" type="text" name="batchNo" value="">
+        试剂有效期：<input class="input-24" type="text" name="effectiveDate" value=""><br/>
+        实验室温/湿度：<input class="input-23" type="text" name="temperatureAndHumidity" value="">
+        反应时间：<input class="input-25" type="text" name="reactionTime" value=""><br/>
+        <br/>
+        <input class="output-button"  type="submit" value="导出原始记录">
+    </form>
+
+</body>
+</html>

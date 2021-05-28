@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>HIV病原体检测中心</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div id="pos"><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+
+<!-- 显示样品基本信息 -->
+<div class="sample-info">
+    <h2>待 处 理 样 品 列 表</h2>
+    <br/>
+    <table class="sample-info-table">
+        <tr>
+            <th class="no">受理编号</th>
+            <th class="patientName">姓名</th>
+            <th class="sex">性别</th>
+            <th class="age">年龄</th>
+            <th class="status">状态</th>
+            <th class="op">操作</th>
+        </tr>
+        <tr th:each="sampleInfo:${list}">
+            <td th:text="${sampleInfo.acceptanceNo}"></td>
+            <td th:text="${sampleInfo.patientName}"></td>
+            <td th:text="${sampleInfo.sex}"></td>
+            <td th:text="${sampleInfo.age}"></td>
+            <td th:text="${sampleInfo.status}"></td>
+            <td class="op-link"><a th:href="${sampleInfo.href} + ${sampleInfo.acceptanceNo}"><span
+                    th:text="${sampleInfo.operation}"></span></a></td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

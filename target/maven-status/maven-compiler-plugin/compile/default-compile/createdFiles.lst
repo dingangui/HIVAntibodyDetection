@@ -1,0 +1,14 @@
+HAD\controller\ModifyHandler.class
+HAD\entity\User.class
+HAD\controller\LoginHandler.class
+HAD\mapper\DetectionResultRepository.class
+HAD\controller\SampleListHandle.class
+HAD\entity\DetectionResult.class
+HAD\mapper\SampleInfoRepository.class
+HAD\entity\SampleInfo.class
+HAD\controller\ReviewHandler.class
+HAD\controller\InfoSubmitHandler.class
+HAD\controller\DetectionInputHandler.class
+HAD\mapper\UserRepository.class
+HAD\Application.class
+HAD\controller\FormExportHandler.class

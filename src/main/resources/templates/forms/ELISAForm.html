@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>HIV抗体检测原始记录（酶联免疫法）</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+<h2>南京市HIV/艾滋病筛查实验室</h2>
+<h2>酶联免疫法检测原始记录</h2><br/>
+<div class="elisa-form">
+    <form action="/formExport/exportELISAForm" method="post">
+        样品编号：<span th:text="${sampleNumberRange}"></span><br/>
+        实验地点：
+        <label><input class="experimentLocation" type="text" name="experimentLocation" value="南京市第一医院检验科309室"></label><br/>
+        实验依据：《全国艾滋病检测技术规范》2015年修订版<br/>
+        仪器设备：
+        <label><input class="device1" type="text" name="device1" value="酶标仪65242"></label>
+        <label><input class="device2" type="text" name="device2" value="洗板机65024"></label>
+        <label><input class="device3" type="text" name="device3" value="生物安全柜16448"></label><br/>
+        试剂名称：
+        <label><input class="reagent-name" type="text" name="reagentName" value="人类免疫缺陷病毒抗原抗体诊断试剂盒（酶联免疫法）"></label><br/>
+        试剂生产厂家：
+        <label><input class="manufacturer" type="text" name="manufacturer" value="伯乐BIO-RAD"></label>
+        试剂批号：
+        <label><input class="batch-no" type="text" name="batchNo" value="0A0488"></label>
+        有效期至：
+        <label><input class="effective-date" type="text" name="effectiveDate" value="2021-04-26"></label><br/>
+        检验过程：<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;每孔加入25μl结合物1（R6），在A1孔加入75μl的HIV抗原阳性对照（R5），在B1孔加入75μl的HIV-1抗体阳性对照（R4），在C1，D1，E1孔加入75μl阴性对照（R3），在F1孔加入75μl的HIV-2抗体阳性对照（R11），后续孔中加入75μl的待检样品及对照，震荡混匀。
+        <label><input class="temperature" type="text" name="temperature" value="37"></label> ℃ 60&plusmn;4min
+        <label><input class="period1" type="text" name="period1" value="09:30--10:30"></label>，用洗液洗涤3遍，每孔加100μl结合物2溶液（R7a+R7b），30&plusmn;4min
+        <label><input class="period2" type="text" name="period2" value="10:40--11:10"></label>，洗涤5遍，每孔迅速加入80μl配置好的底物液（R8+R9，现配现用），室温避光
+        30&plusmn;4min<label><input class="period3" type="text" name="period3" value="11:20--11:50"></label>，每孔再加100μl终止液，加入终止液2min后30min内用酶标仪在450/620nm比色测OD值。<br/>
+        加样顺序：（导出报表后查看）<br/>
+
+        <br/>
+        <div id="environment">环境温度：<label><input class="temperature" type="text" name="environmentTemperature" value="27">℃</label>&emsp;&emsp;&emsp;湿度：<label><input class="temperature" type="text" name="humidity" value="51">%</label></div><br/>
+        <div id="todays-date">日期：<span th:text="${date}"></span></div>
+        <input class="output-button"  type="submit" value="导出原始记录">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>HIV筛查检测平台</title>
+    <link rel="stylesheet" th:href="@{/css/regAndLogin.css}">
+</head>
+
+<body>
+<div class="content">
+    <div class="form sign-in">
+        <h2>H I V 筛 查 检 测 平 台</h2><br/><br/><br/>
+        <form action="/login" method="POST">
+            <label>
+                <span>用户名</span>
+                <input type="text" name="username" required="required"/>
+            </label>
+            <label>
+                <span>密码</span>
+                <input type="password" name="password" required="required"/>
+            </label>
+
+            <button type="submit" class="submit">登 录</button>
+        </form>
+        <label>
+            <span th:if="${#request.getAttribute('warning') == 'true'}" th:text="${#request.getAttribute('message')}"></span>
+        </label>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h2>还未注册？</h2>
+                <p>立即注册！</p>
+            </div>
+            <div class="img__text m--in">
+                <h2>已有帐号？</h2>
+                <p>点击登录！</p>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">注 册</span>
+                <span class="m--in">登 录</span>
+            </div>
+        </div>
+        <div class="form sign-up">
+            <h2>立即注册</h2><br/><br/><br/>
+            <form action="/register" method="POST">
+                <label>
+                    <span>用户名</span>
+                    <input type="text" name="username" required="required"/>
+                </label>
+                <label>
+                    <span>密码</span>
+                    <input type="password" name="password" required="required"/>
+                </label>
+
+                <button type="submit" class="submit">注 册</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    document.querySelector('.img__btn').addEventListener('click', function () {
+        document.querySelector('.content').classList.toggle('s--signup')
+    })
+
+
+
+</script>
+</body>
+
+</html>

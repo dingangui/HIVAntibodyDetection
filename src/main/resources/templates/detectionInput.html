@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>检测结果录入</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div id="pos"><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+<!-- 检测部分主界面 -->
+<h2>检 测 结 果 录 入</h2><br/><br/>
+<div class="detection">
+    <div class="sample-info">
+        <h3>样 品 基 本 信 息</h3><br/>
+        <span th:text="${sampleInfo.acceptanceNo}"></span><span>受理编号：</span>
+        <table class="sample-info-table">
+            <tr>
+                <th colspan="1" class="t-10">送检<br/>单位</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.inspectionUnit}"></td>
+                <th colspan="1" class="t-10">送检<br/>日期</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.inspectionDate}"></td>
+            </tr>
+            <tr>
+                <th colspan="1" class="t-10">送检<br/>样品</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.sampleType}"></td>
+                <th colspan="1" class="t-10">送检<br/>人群</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.patientType}"></td>
+            </tr>
+            <tr>
+                <th class="t-10">姓名</th>
+                <td class="t-15" th:text="${sampleInfo.patientName}"></td>
+                <th class="t-10">性别</th>
+                <td class="t-15" th:text="${sampleInfo.sex}"></td>
+                <th class="t-10">年龄</th>
+                <td class="t-15" th:text="${sampleInfo.age}"></td>
+                <th class="t-10">职业</th>
+                <td class="t-15" th:text="${sampleInfo.profession}"></td>
+            </tr>
+            <tr>
+                <th class="t-10">国籍</th>
+                <td class="t-15" th:text="${sampleInfo.country}"></td>
+                <th class="t-10">民族</th>
+                <td class="t-15" th:text="${sampleInfo.nation}"></td>
+                <th class="t-10">婚姻<br/>状况</th>
+                <td class="t-15" th:text="${sampleInfo.marriage}"></td>
+                <th class="t-10">文化<br/>程度</th>
+                <td class="t-15" th:text="${sampleInfo.educationalLevel}"></td>
+            </tr>
+            <tr>
+                <th colspan="1" class="t-10">身份证</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.IDNumber}"></td>
+                <th colspan="1" class="t-10">联系<br/>电话</th>
+                <td colspan="3" class="t-40" th:text="${sampleInfo.phone}"></td>
+            </tr>
+            <tr>
+                <th colspan="1" class="t-10">现住址</th>
+                <td colspan="7" th:text="${sampleInfo.presentAddress}"></td>
+            </tr>
+            <tr>
+                <th colspan="1" class="t-10">户籍<br/>地址</th>
+                <td colspan="7" th:text="${sampleInfo.residenceAddress}"></td>
+            </tr>
+        </table>
+        <br/>
+        <br>
+    </div>
+    <div class="detection-info">
+        <h3>检 测 结 果</h3><br/>
+        <div th:each="detectionResult:${detectionResults}">
+            <span th:text="${detectionResult.detectionName}"></span>
+            <table class="detection-result">
+                <tr>
+                    <th colspan="1" class="t-10">检测方法</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.detectionMethod}"></td>
+                    <th colspan="1" class="t-10">检测日期</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.detectionDate}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-10">试剂厂家</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.manufacture}"></td>
+                    <th colspan="1" class="t-10">批号</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.batchNo}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-10">有效日期</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.validDate}"></td>
+                    <th colspan="1" class="t-10">临界值</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.criticalValue}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-10">样本检测值</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.detectionValue}"></td>
+                    <th colspan="1" class="t-10">检测结果</th>
+                    <td colspan="3" class="t-40" th:text="${detectionResult.detectionResult}"></td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+
+        <div th:if="${detectionNeeds=='true'}">
+            <span th:text="${detectionName}"></span><br/>
+            <form action="/detectionInput/detectionResultSubmit" method="POST">
+                <input type="hidden" name="acceptanceNo" th:value="${sampleInfo.acceptanceNo}">
+                <input type="hidden" name="detectionName" th:value="${detectionName}">
+                <div class="detection-input">
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="detectionMethod">检测方法</label>
+                        </div>
+                        <div class="col-30">
+                            <input id="detectionMethod" name="detectionMethod" list="detectionMethodList"
+                                   autocomplete="off">
+                            <datalist id="detectionMethodList">
+                                <option value="ELISA">
+                                <option value="PA">
+                                <option value="化学发光">
+                                <option value="RT">
+                            </datalist>
+                        </div>
+                        <div class="col-15">
+                            <label for="detectionDate">检测日期</label>
+                        </div>
+                        <div class="col-30">
+                            <input type="date" id="detectionDate" name="detectionDate" value="2019-01-01">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="manufacture">试剂厂家</label>
+                        </div>
+                        <div class="col-30">
+                            <input id="manufacture" name="manufacture">
+                        </div>
+                        <div class="col-15">
+                            <label for="batchNo">批号</label>
+                        </div>
+                        <div class="col-30">
+                            <input type="text" id="batchNo" name="batchNo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="validDate">有效日期</label>
+                        </div>
+                        <div class="col-30">
+                            <input type="date" id="validDate" name="validDate" value="2019-01-01">
+                        </div>
+                        <div class="col-15">
+                            <label for="criticalValue">临界值</label>
+                        </div>
+                        <div class="col-30">
+                            <input type="text" id="criticalValue" name="criticalValue">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-15">
+                            <label for="detectionValue">样本检测值</label>
+                        </div>
+                        <div class="col-30">
+                            <input type="text" id="detectionValue" name="detectionValue">
+                        </div>
+                        <div class="col-15">
+                            <label>检测结果</label>
+                        </div>
+                        <div class="col-30">
+                            <label>
+                                <select name="detectionResult">
+                                    <option value="有反应">有反应</option>
+                                    <option value="无反应">无反应</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <input id="detectionResultSubmit" type="submit" value="提 交">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

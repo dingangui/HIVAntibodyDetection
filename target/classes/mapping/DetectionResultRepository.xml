@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HAD.mapper.DetectionResultRepository">
+
+  <insert id="save" parameterType="DetectionResult">
+    insert into detectionresults(acceptanceNo, detectionMethod, detectionDate, manufacture, batchNo, validDate,
+                                 criticalValue, detectionValue, detectionResult, detectionName)
+    values (#{acceptanceNo}, #{detectionMethod}, #{detectionDate}, #{manufacture}, #{batchNo}, #{validDate},
+            #{criticalValue}, #{detectionValue}, #{detectionResult}, #{detectionName})
+  </insert>
+
+  <select id="findByAcceptanceNo" parameterType="String" resultType="DetectionResult">
+    select *
+    from detectionresults
+    where acceptanceNo = #{acceptanceNo}
+  </select>
+  <update id="update" parameterType="DetectionResult">
+    update detectionresults
+    <set>
+      <if test="detectionMethod!=null">
+        detectionMethod = #{detectionMethod},
+      </if>
+      <if test="detectionDate!=null">
+        detectionDate = #{detectionDate},
+      </if>
+      <if test="manufacture!=null">
+        manufacture = #{manufacture},
+      </if>
+      <if test="batchNo!=null">
+        batchNo = #{batchNo},
+      </if>
+      <if test="validDate!=null">
+        validDate = #{validDate},
+      </if>
+      <if test="criticalValue!=null">
+        criticalValue = #{criticalValue},
+      </if>
+      <if test="detectionValue!=null">
+        detectionValue = #{detectionValue},
+      </if>
+      <if test="detectionResult!=null">
+        detectionResult = #{detectionResult}
+      </if>
+    </set>
+    where acceptanceNo = #{acceptanceNo} and detectionName = #{detectionName}
+  </update>
+
+</mapper>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>修改样品信息</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div id="pos"><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+<!-- 修改部分主界面 -->
+<h2>修 改 样 品 信 息</h2><br/>
+<h6>(一次只能修改一个表格内的数据)</h6><br/>
+<div class="modify">
+    <div class="sample-info">
+        <h3>样 品 基 本 信 息</h3><br/>
+        <span th:text="${sampleInfo.acceptanceNo}"></span><span>受理编号：</span>
+        <form action="/modify/sampleInfoSubmit" method="post">
+            <input type="hidden" name="acceptanceNo" th:value="${sampleInfo.acceptanceNo}">
+            <table class="sample-info-table">
+                <tr>
+                    <th colspan="1" class="t-15">送检<br/>单位</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="text" name="inspectionUnit" th:value="${sampleInfo.inspectionUnit}">
+                        </label>
+                    </td>
+                    <th colspan="1" class="t-15">送检<br/>日期</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="date" name="inspectionDate" th:value="${sampleInfo.inspectionDate}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-15">送检<br/>样品</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="text" name="sampleType" th:value="${sampleInfo.sampleType}">
+                            <datalist id="sampleTypeList">
+                                <option value="全血">
+                                <option value="血浆">
+                                <option value="血清">
+                                <option value="口腔黏膜渗出液">
+                                <option value="尿">
+                            </datalist>
+                        </label>
+                    </td>
+                    <th colspan="1" class="t-15">送检<br/>人群</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="text" name="patientType" th:value="${sampleInfo.patientType}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="t-15">姓名</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="patientName" th:value="${sampleInfo.patientName}">
+                        </label>
+                    </td>
+                    <th class="t-15">性别</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="sex" th:value="${sampleInfo.sex}">
+                        </label>
+                    <th class="t-15">年龄</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="age" th:value="${sampleInfo.age}">
+                        </label>
+                    </td>
+                    <th class="t-15">职业</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="profession" th:value="${sampleInfo.profession}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="t-15">国籍</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="country" th:value="${sampleInfo.country}">
+                        </label>
+                    </td>
+                    <th class="t-15">民族</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="nation" th:value="${sampleInfo.nation}">
+                        </label>
+                    </td>
+                    <th class="t-15">婚姻<br/>状况</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="marriage" th:value="${sampleInfo.marriage}">
+                        </label>
+                    </td>
+                    <th class="t-15">文化<br/>程度</th>
+                    <td class="t-15">
+                        <label>
+                            <input type="text" name="educationalLevel" th:value="${sampleInfo.educationalLevel}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-15">身份证</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="text" name="IDNumber" th:value="${sampleInfo.IDNumber}">
+                        </label>
+                    </td>
+                    <th colspan="1" class="t-15">联系<br/>电话</th>
+                    <td colspan="3">
+                        <label>
+                            <input type="text" name="phone" th:value="${sampleInfo.phone}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-15">现住址</th>
+                    <td colspan="7">
+                        <label>
+                            <input type="text" name="presentAddress" th:value="${sampleInfo.presentAddress}">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="1" class="t-15">户籍<br/>地址</th>
+                    <td colspan="7">
+                        <label>
+                            <input type="text" name="residenceAddress" th:value="${sampleInfo.residenceAddress}">
+                        </label>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+
+            <label>
+                <input type="submit" value="修 改">
+            </label>
+        </form>
+        <br>
+    </div>
+    <div class="detection-info">
+        <h3>检 测 结 果</h3><br/>
+        <div th:each="detectionResult:${detectionResults}">
+            <span th:text="${detectionResult.detectionName}"></span>
+            <form action="/modify/detectionResultSubmit" method="post">
+                <input type="hidden" name="acceptanceNo" th:value="${acceptanceNo}">
+                <input type="hidden" name="detectionName" th:value="${detectionResult.detectionName}">
+                <table class="detection-result">
+                    <tr>
+                        <th colspan="1">检测方法</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="detectionMethod" th:value="${detectionResult.detectionMethod}">
+                                <datalist id="detectionMethodList">
+                                    <option value="ELISA">
+                                    <option value="PA">
+                                    <option value="化学发光">
+                                    <option value="RT">
+                                </datalist>
+                            </label>
+                        </td>
+                        <th colspan="1">检测日期</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="date" name="detectionDate" th:value="${detectionResult.detectionDate}">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="1">试剂厂家</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="manufacture" th:value="${detectionResult.manufacture}">
+                            </label>
+
+                        </td>
+                        <th colspan="1">批号</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="batchNo" th:value="${detectionResult.batchNo}">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="1">有效日期</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="date" name="validDate" th:value="${detectionResult.validDate}">
+
+                            </label>
+                        </td>
+                        <th colspan="1">临界值</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="criticalValue" th:value="${detectionResult.criticalValue}">
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="1">样本检测值</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="detectionValue" th:value="${detectionResult.detectionValue}">
+                            </label>
+                        </td>
+                        <th colspan="1">检测结果</th>
+                        <td colspan="3">
+                            <label>
+                                <input type="text" name="detectionResult" th:value="${detectionResult.detectionResult}">
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+
+                <label>
+                    <input type="submit" value="修 改">
+                </label>
+            </form>
+            <br/>
+            <br/><br/><br/>
+
+        </div>
+<!--        <form action="/modify/" method="post">-->
+<!--            <input type="hidden" name="acceptanceNo" th:value="${sampleInfo.acceptanceNo}">-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>-->
+<!--                        <label for="conclusion">筛查结论</label>-->
+<!--                    </th>-->
+<!--                    <td>-->
+<!--                        <input name="conclusion" id="conclusion" th:value="${sampleInfo.conclusion}">-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
+
+
+<!--            <input type="submit" value="提交 ">-->
+<!--        </form>-->
+    </div>
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HAD.mapper.SampleInfoRepository">
+
+  <!--  得到上一个新增样品的ID-->
+  <select id="getLastInsertID" resultType="int">
+    SELECT LAST_INSERT_ID();
+  </select>
+
+  <!--  所有待操作名单-->
+  <select id="findPendingSamples" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where operation != '再次导出';
+  </select>
+
+  <!--  所有需要检测的样品名单-->
+  <select id="findSamplesToBeTested" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where operation in ('初筛检测', '复检1', '复检2')
+  </select>
+
+  <!--  所有未审核的样品名单-->
+  <select id="findUnreviewedSamples" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where operation in ('初筛审核', '复检审核');
+  </select>
+
+  <!--  所有可修改信息的样品名单-->
+  <select id="findModifiableSamples" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where operation != '再次导出';
+  </select>
+
+  <!--  所有可导出报表的样品名单  -->
+  <select id="findExportableSamples" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where operation in ('导出报表', '再次导出')
+    order by operation desc;
+  </select>
+
+  <!-- 所有初筛通过，需要ELISA检测的样品名单 -->
+  <select id="findPrimaryScreeningPassed" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where status = '初筛阳性，待复检'
+  </select>
+
+  <select id="findConfirmationNeeded" resultType="sampleInfo">
+    select *
+    from sampleinfo
+    where status = '复检'
+  </select>
+  <!--  插入样本信息-->
+  <insert id="save" parameterType="SampleInfo">
+    insert into sampleinfo(inspectionUnit, inspectionDate, sampleType, patientType, patientName, sex, age, profession,
+                           country, nation, marriage, educationalLevel, IDNumber, phone, presentAddress,
+                           residenceAddress, status, operation, href)
+    values (#{inspectionUnit}, #{inspectionDate}, #{sampleType}, #{patientType}, #{patientName}, #{sex}, #{age},
+            #{profession},
+            #{country}, #{nation}, #{marriage}, #{educationalLevel}, #{IDNumber}, #{phone}, #{presentAddress},
+            #{residenceAddress}, '样品录入，待初筛', '初筛检测', '/detectionInput/');
+  </insert>
+
+  <!--  更新受理编号-->
+  <update id="updateAcceptanceNo">
+    update sampleinfo
+    set acceptanceNo = #{param1}
+    where id = #{param2};
+  </update>
+
+  <!--  根据受理编号查找特定的样品  -->
+  <select id="findByAcceptanceNo" parameterType="String" resultType="SampleInfo">
+    select *
+    from sampleinfo
+    where acceptanceNo = #{acceptanceNo}
+  </select>
+
+  <!--  更新状态、操作、链接-->
+  <update id="updateStatusAndOperation">
+    update sampleinfo
+    set status    = #{param1},
+        operation = #{param2},
+        href      = #{param3}
+    where acceptanceNo = #{param4}
+  </update>
+
+  <!--  更新筛查结论-->
+  <update id="updateConclusion">
+    update sampleinfo
+    set conclusion = #{param1}
+    where acceptanceNo = #{param2}
+  </update>
+
+  <!--更新检测者姓名-->
+  <update id="updateInspector">
+    update sampleinfo
+    set inspector = #{param1}
+    where acceptanceNo = #{param2}
+  </update>
+
+  <!--更新审核者姓名-->
+  <update id="updateReviewer">
+    update sampleinfo
+    set reviewer = #{param1}
+    where acceptanceNo = #{param2}
+  </update>
+
+  <!--  更新样品信息-->
+  <update id="update" parameterType="SampleInfo">
+    update sampleinfo
+    <set>
+      <if test="inspectionUnit!=null">
+        inspectionUnit = #{inspectionUnit},
+      </if>
+      <if test="inspectionDate!=null">
+        inspectionDate = #{inspectionDate},
+      </if>
+      <if test="sampleType!=null">
+        sampleType = #{sampleType},
+      </if>
+      <if test="patientType!=null">
+        patientType = #{patientType},
+      </if>
+      <if test="patientName!=null">
+        patientName = #{patientName},
+      </if>
+      <if test="sex!=null">
+        sex = #{sex},
+      </if>
+      <if test="age!=null">
+        age = #{age},
+      </if>
+      <if test="country!=null">
+        country = #{country},
+      </if>
+      <if test="nation!=null">
+        nation = #{nation},
+      </if>
+      <if test="marriage!=null">
+        marriage = #{marriage},
+      </if>
+      <if test="educationalLevel!=null">
+        educationalLevel = #{educationalLevel},
+      </if>
+      <if test="IDNumber!=null">
+        IDNumber = #{IDNumber},
+      </if>
+      <if test="phone!=null">
+        phone = #{phone},
+      </if>
+      <if test="presentAddress!=null">
+        presentAddress = #{presentAddress},
+      </if>
+      <if test="residenceAddress!=null">
+        residenceAddress = #{residenceAddress}
+      </if>
+    </set>
+    where acceptanceNo = #{acceptanceNo};
+  </update>
+
+</mapper>
+
+

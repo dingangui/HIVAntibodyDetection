@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>审核样品检测结果</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div id="pos"><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+<!-- 检测部分主界面 -->
+<h2>审 核 检 测 结 果</h2><br/><br/>
+<div class="detection">
+    <div class="sample-info">
+        <h3>样 品 基 本 信 息</h3><br/>
+        <span th:text="${sampleInfo.acceptanceNo}"></span><span>受理编号：</span>
+        <table class="sample-info-table">
+            <tr>
+                <th colspan="1">送检<br/>单位</th>
+                <td colspan="3" th:text="${sampleInfo.inspectionUnit}"></td>
+                <th colspan="1">送检<br/>日期</th>
+                <td colspan="3" th:text="${sampleInfo.inspectionDate}"></td>
+            </tr>
+            <tr>
+                <th colspan="1">送检<br/>样品</th>
+                <td colspan="3" th:text="${sampleInfo.sampleType}"></td>
+                <th colspan="1">送检<br/>人群</th>
+                <td colspan="3" th:text="${sampleInfo.patientType}"></td>
+            </tr>
+            <tr>
+                <th>姓名</th>
+                <td class="t-15" th:text="${sampleInfo.patientName}"></td>
+                <th>性别</th>
+                <td class="t-15" th:text="${sampleInfo.sex}"></td>
+                <th>年龄</th>
+                <td class="t-15" th:text="${sampleInfo.age}"></td>
+                <th>职业</th>
+                <td class="t-15" th:text="${sampleInfo.profession}"></td>
+            </tr>
+            <tr>
+                <th>国籍</th>
+                <td class="t-15" th:text="${sampleInfo.country}"></td>
+                <th>民族</th>
+                <td class="t-15" th:text="${sampleInfo.nation}"></td>
+                <th>婚姻<br/>状况</th>
+                <td class="t-15" th:text="${sampleInfo.marriage}"></td>
+                <th>文化<br/>程度</th>
+                <td class="t-15" th:text="${sampleInfo.educationalLevel}"></td>
+            </tr>
+            <tr>
+                <th colspan="1">身份证</th>
+                <td colspan="3" th:text="${sampleInfo.IDNumber}"></td>
+                <th colspan="1">联系<br/>电话</th>
+                <td colspan="3" th:text="${sampleInfo.phone}"></td>
+            </tr>
+            <tr>
+                <th colspan="1">现住址</th>
+                <td colspan="7" th:text="${sampleInfo.presentAddress}"></td>
+            </tr>
+            <tr>
+                <th colspan="1">户籍<br/>地址</th>
+                <td colspan="7" th:text="${sampleInfo.residenceAddress}"></td>
+            </tr>
+        </table>
+        <br/>
+        <br>
+    </div>
+    <div class="detection-info">
+        <h3>检 测 结 果</h3><br/>
+        <div th:each="detectionResult:${detectionResults}">
+            <span th:text="${detectionResult.detectionName}"></span>
+            <table class="detection-result">
+                <tr>
+                    <th colspan="1">检测方法</th>
+                    <td colspan="3" th:text="${detectionResult.detectionMethod}"></td>
+                    <th colspan="1">检测日期</th>
+                    <td colspan="3" th:text="${detectionResult.detectionDate}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1">试剂厂家</th>
+                    <td colspan="3" th:text="${detectionResult.manufacture}"></td>
+                    <th colspan="1">批号</th>
+                    <td colspan="3" th:text="${detectionResult.batchNo}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1">有效日期</th>
+                    <td colspan="3" th:text="${detectionResult.validDate}"></td>
+                    <th colspan="1">临界值</th>
+                    <td colspan="3" th:text="${detectionResult.criticalValue}"></td>
+                </tr>
+                <tr>
+                    <th colspan="1">样本检测值</th>
+                    <td colspan="3" th:text="${detectionResult.detectionValue}"></td>
+                    <th colspan="1">检测结果</th>
+                    <td colspan="3" th:text="${detectionResult.detectionResult}"></td>
+                </tr>
+            </table>
+            <br/>
+        </div>
+        <br/>
+        <div class="row">
+            <form action="/review/submit" method="POST">
+                <input type="hidden" name="acceptanceNo" th:value="${sampleInfo.acceptanceNo}">
+                <div class="col-15">
+                    <label for="conclusion">筛查结论</label>
+                </div>
+                <div class="col-30">
+                    <select id="conclusion" name="conclusion">
+                        <option value="HIV感染待确定">HIV感染待确定</option>
+                        <option value="HIV抗体阴性">HIV抗体阴性</option>
+                    </select>
+                </div>
+                <input type="submit" value="提交 ">
+            </form>
+            <br/>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

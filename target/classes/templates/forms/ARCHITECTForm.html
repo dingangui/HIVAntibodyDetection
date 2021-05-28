@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>ARCHITECT原始记录</title>
+</head>
+
+<body>
+<!-- 最上方导航 -->
+<div class="nav">
+    <div><a th:href="@{/pendingSamples}" class="nav-list">首页</a></div>
+    <div><a th:href="@{/infoInput}" class="nav-list">录入样品信息</a></div>
+    <div><a th:href="@{/samplesToBeTested}" class="nav-list">录入检测结果</a></div>
+    <div><a th:href="@{/unreviewedSamples}" class="nav-list">审核检测结果</a></div>
+    <div><a th:href="@{/modifiableSamples}" class="nav-list">修改样品信息</a></div>
+    <div class="dropdown">
+        <span>导出样品报表</span>
+        <div class="dropdown_content">
+            <a th:href="@{/inspectionForm}" class="dropdown_list">导出HIV抗体筛查检测报告（送检单）</a>
+            <a th:href="@{/ELISAForm}" class="dropdown_list">导出HIV抗体检测原始记录（酶联免疫法）</a>
+            <a th:href="@{/PARTForm}" class="dropdown_list">导出快速检测实验原始记录</a>
+            <a th:href="@{/ARCHITECTForm}" class="dropdown_list">导出ARCHITECT<br/>原始记录</a>
+        </div>
+    </div>
+    <a th:href="@{/logout}" id="logout">退出</a>
+    <div id="username">你好，<span th:text="${#session.getAttribute('username')}"></span></div>
+</div>
+
+<h2>南京市疾病预防控制中心艾滋病确证实验室</h2>
+<h2>ARCHITECT原始记录</h2><br/>
+<div class="architect-form">
+    <form action="/formExport/exportARCHITECTForm" method="post">
+        样品编号：<span th:text="${sampleNumberRange}"></span><br/>
+        实验地点：
+        <label><input class="experimentLocation" type="text" name="experimentLocation" value="南京市第一医院检验科309室"></label><br/>
+        实验依据：《全国艾滋病检测技术规范》2015年修订版<br/>
+        仪器设备：
+        <label><input class="device1" type="text" name="device1" value="酶标仪65242"></label>
+        <label><input class="device2" type="text" name="device2" value="洗板机65024"></label>
+        <label><input class="device3" type="text" name="device3" value="生物安全柜16448"></label><br/>
+        试剂名称：
+        <label><input class="reagent-name" type="text" name="reagentName" value="人类免疫缺陷病毒抗原抗体诊断试剂盒（化学发光法）"></label><br/>
+        试剂生产厂家：
+        <label><input class="manufacturer" type="text" name="manufacturer" value="雅培ABBOTT"></label>
+        试剂批号：
+        <label><input class="batch-no" type="text" name="batchNo" value="0A0488"></label>
+        有效期至：
+        <label><input class="effective-date" type="text" name="effectiveDate" value="2021-04-26"></label><br/>
+        检验过程：<br/>
+        &nbsp;&nbsp;&nbsp;翻转微粒子试剂瓶30次以上以保证微粒子重新悬浮。取下瓶盖并丢弃。佩戴干净的手套，从包装袋中取出软盖。小心地把软盖安在瓶口上。申请校准（必要时）、患者样本、质控品，申请检测。将ARCHITECT人类免疫缺陷病毒抗原及抗体联合测定试剂盒安装到ARCHITECT i 系统上。检查检测所需试剂是否齐全。确保所有试剂瓶都有软盖。系统计算出样品杯所需的最小样本量，并打印在申请报告中。每个样品杯的重复取样次数不能超过10次。为了最大程度上减小蒸发的影响，运行检测前要确保样品杯中的样本量充足。在机时间≤ 3小时：第一次进行ARCHITECT HIV抗原及抗体联合检测需要150 μL样本，每增加一次ARCHITECT HIV抗原及抗体联合检测需要在同一样品杯中增加100 μL样本。ARCHITECT HIV抗原及抗体联合校准品1和质控品在使用前应轻轻颠倒混匀。垂直握住试剂瓶，向相应的样品杯中分别加入每种水平的校准品各20滴。加载样本。按下RUN启动。<br/>
+        加样顺序：（导出报表后查看）<br/>
+        <br/>
+        <div id="environment">环境温度：<label><input class="temperature" type="text" name="environmentTemperature" value="27">℃</label>&emsp;&emsp;&emsp;湿度：<label><input class="temperature" type="text" name="humidity" value="51">%</label></div><br/>
+        <div id="todays-date">日期：<span th:text="${date}"></span></div>
+        <input class="output-button"  type="submit" value="导出原始记录">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,633 @@
+/* 清除默认样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* 所有页面的背景 */
+
+body {
+    color: cornsilk;
+    text-align: center;
+    font: 16px "Consolas";
+    background-color: rgb(21, 78, 78);
+}
+
+
+/* 选中文本的颜色 */
+
+::selection {
+    background: rgb(45, 175, 204);
+}
+
+
+/* 所有页面的导航栏 */
+
+.nav {
+    color: white;
+    text-align: center;
+    background-color: rgb(12, 61, 73);
+    border-radius: 5px;
+    padding: 0 150px;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+
+/* 当前所在位置 */
+
+#pos a {
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+}
+
+
+/*解决高度塌陷*/
+
+.nav:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+
+/* 导航栏每一个单项的属性 */
+
+.nav .nav-list,
+#username,
+#logout {
+    float: left;
+    padding: 10px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 3px;
+}
+
+
+/* 导航栏链接样式 */
+
+.nav a {
+    text-decoration: none;
+    color: white;
+}
+
+/* 导航栏触碰和点击后的效果 */
+
+.nav a:hover,
+.nav a:active {
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+}
+
+/* 导航栏下单菜单样式 */
+.nav .dropdown{
+    float: left;
+    padding: 10px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 3px;
+    display: inline-block;
+}
+
+.nav .dropdown .dropdown_content{
+    display: none;
+    position: absolute;
+    width: 200px;
+    margin-top: 13px;
+    margin-left: -15px;
+    background-color: rgb(12, 61, 73);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+.nav .dropdown .dropdown_content .dropdown_list{
+    display: inline-block;
+    padding: 10px;
+    width: 175px;
+    text-decoration: none;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 3px;
+}
+
+.nav .dropdown:hover .dropdown_content{
+    display:block;
+}
+.nav .dropdown:hover .dropdown_content .dropdown_list:hover{
+    padding: 10px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+}
+
+/* 导航栏用户名称及退出 */
+
+#username,
+#logout {
+    float: right;
+}
+
+#logout:hover {
+    color: red;
+}
+
+
+/* 样品基本信息的表格属性 */
+
+
+/* div属性 */
+
+.sample-info {
+    margin: 0 auto;
+}
+
+
+/* 样品基本信息表 */
+
+.sample-info .sample-info-table {
+    font-size: 1em;
+    width: 50%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: 2px solid white;
+}
+
+
+/* 表格栏宽度 */
+
+.sample-info .sample-info-table th,
+td {
+    padding: 10px 0;
+    border: 1px solid white;
+}
+
+.sample-info .sample-info-table .no,
+.sample-info .sample-info-table .op {
+    width: 18.75%;
+}
+
+.sample-info .sample-info-table .status {
+    width: 25%;
+}
+
+.sample-info .sample-info-table .patientNae {
+    width: 15%;
+}
+
+.sample-info .sample-info-table .age,
+.sample-info .sample-info-table .sex {
+    width: 9.25%;
+}
+
+
+/* 操作触碰、点击属性 */
+
+.sample-info .sample-info-table .op-link a {
+    text-decoration: none;
+    color: white;
+}
+
+.sample-info .sample-info-table .op-link:hover,
+.sample-info .sample-info-table .op-link a:hover {
+    background-color: rgb(12, 61, 73);
+}
+
+.sample-info .sample-info-table .op-link:active,
+.sample-info .sample-info-table .op-link a:active {
+    background-color: rgb(12, 61, 73);
+}
+
+.sample-info .sample-info-table .op-link:visited,
+.sample-info .sample-info-table .op-link a:visited {
+    text-decoration: none;
+    color: white;
+    background-color: rgb(12, 61, 73);
+}
+
+
+/* 样品信息输入页 */
+
+
+/* 表单的布局 */
+
+.info-input {
+    padding: 0 300px;
+    /* width: 50%;
+    margin: 0 auto; */
+}
+
+
+/* 表单属性 */
+
+
+/* 文本输入和下拉菜单 */
+
+input,
+select {
+    caret-color: white;
+    width: 100%;
+    font: 16px 'Consolas';
+    color: white;
+    outline: none;
+    padding: 4px 5px 4px 5px;
+    border-style: none;
+    border-bottom: 1px solid rgb(248, 242, 242);
+    resize: vertical;
+    background-color: rgb(21, 78, 78);
+}
+
+input:hover {
+    background-color: rgba(12, 61, 73, 0.8)
+}
+
+input[type=submit] {
+    float: right;
+    border: 1px solid white;
+    width: 20%;
+}
+
+input[type=submit]:hover {
+    background-color: rgb(12, 61, 73);
+}
+
+
+/* 日期选择器选中文字的颜色 */
+
+input::-webkit-datetime-edit-year-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-day-field:focus {
+    background-color: rgba(41, 18, 218, 0.527)
+}
+
+
+/* 自动填充样式 */
+
+input:-webkit-autofill {
+    color: white;
+    -webkit-text-fill-color: #FFFFFF !important;
+    box-shadow: 0 0 0 1000px rgb(21, 78, 78) inset !important;
+}
+
+
+/* 日期控件里清除按钮 */
+
+::-webkit-clear-button {
+    font: 2em sans-serif;
+}
+
+
+/* 输入信息时每一行的属性 */
+
+.row {
+    display: block;
+    margin: 15px 0;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* 不同宽度的列属性 */
+
+.col-5 {
+    float: left;
+    width: 5%;
+}
+
+.col-15 {
+    float: left;
+    width: 15%;
+    text-align: right;
+    margin: 5px 0;
+    padding-right: 15px;
+}
+
+.col-20 {
+    float: left;
+    width: 20%;
+    text-align: right;
+}
+
+.col-30 {
+    float: left;
+    width: 30%;
+}
+
+.col-70 {
+    float: left;
+    width: 70%;
+}
+
+.col-80 {
+    float: left;
+    width: 80%;
+}
+
+
+/* 检测结果输入页面和修改数据界面 */
+
+
+/* 样品基本信息，展式在左侧 */
+
+.detection .sample-info,
+.modify .sample-info {
+    float: left;
+    width: 40%;
+    margin: 0 80px;
+}
+
+
+/* 受理编号的控制 */
+
+.detection .sample-info span,
+.modify .sample-info span,
+.output .sample-info span {
+    float: right;
+    margin-bottom: 5px;
+}
+
+
+/* 样品基本信息表宽度铺满整个div */
+
+.detection .sample-info .sample-info-table,
+.modify .sample-info .sample-info-table,
+.output .sample-info .sample-info-table {
+    width: 100%;
+}
+
+
+/* 表格中较窄表格列（10%） */
+
+.detection .sample-info .sample-info-table .t-10 {
+    width: 10%;
+}
+
+
+/* 表格中较窄表格列（15%） */
+
+.detection .sample-info .sample-info-table .t-15 {
+    width: 15%;
+}
+
+
+/* 表格中较宽表格列 */
+
+.detection .sample-info .sample-info-table .t-40 {
+    width: 40%;
+}
+
+
+/* 样品基本信息表格单元格属性 */
+
+.detection .sample-info .sample-info-table th,
+.detection .sample-info .sample-info-table td {
+    height: 35px;
+}
+
+
+/* 样品检测结果 */
+
+.detection .detection-info,
+.modify .detection-info {
+    width: 40%;
+    float: left;
+    margin-bottom: 100px;
+}
+
+
+/* 样品检测结果表格属性 */
+
+.detection .detection-info table,
+.modify .detection-info table {
+    border-collapse: collapse;
+    border: 2px solid white;
+    width: 100%;
+}
+
+
+/* 检测轮次提示 */
+
+.detection .detection-info span {
+    float: left;
+    margin-bottom: 5px;
+}
+
+
+/* 样品检测结果表格单元格属性 */
+
+.detection .detection-info .detection-result th,
+.detection .detection-info .detection-result td,
+.modify .detection-info .detection-result th,
+.modify .detection-info .detection-result td {
+    height: 19px;
+    border: 1px solid white;
+}
+
+.detection .detection-info .detection-result th,
+.modify .detection-info .detection-result th {
+    width: 20%;
+}
+
+.detection .detection-info .detection-result td,
+.modify .detection-info .detection-result td {
+    width: 30%;
+}
+
+/* 检测结果提交按钮 */
+
+#detectionResultSubmit {
+    width: 30%;
+}
+
+
+/* 修改信息页面和导出报表的页面 */
+
+.output .sample-info {
+    width: 50%;
+    margin-bottom: 100px;
+}
+
+
+/* 表格内的input */
+
+.modify input {
+    border: none;
+    width: 80%;
+    background-color: transparent;
+}
+
+.modify input[type=submit],
+.output input[type=submit] {
+    float: right;
+    border: 1px solid white;
+    width: 20%;
+    margin-left: 10px;
+}
+
+.modify input:hover,
+.modify select:hover {
+    background-color: rgb(3, 44, 46);
+}
+
+
+/* 表格的表头和表格项 */
+
+.modify .sample-info .sample-info-table th,
+.modify .sample-info .sample-info-table td {
+    width: 30%;
+    height: 20px;
+}
+
+
+/* 触碰效果 */
+
+.modify .sample-info .sample-info-table td:hover,
+.modify .detection-info .detection-result td:hover {
+    background-color: rgb(3, 44, 46);
+}
+
+/*修改信息界面的检测结果轮次提示*/
+.modify .detection-info span {
+    float: left;
+    margin-bottom: 5px;
+}
+
+/* 1列表格宽度 */
+
+.modify .sample-info .sample-info-table .t-15 {
+    width: 12.5%;
+}
+
+
+/* 导出报表 */
+.output .sample-info .sample-info-table .t-125{
+    width: 12.5%;
+}
+
+.output .sample-info .sample-info-table .t-375{
+    width: 37.5%;
+}
+
+/* 对几个要导出报表的样式设计*/
+.elisa-form,
+.architect-form{
+    width: 50%;
+    text-align: left;
+    margin: 0 auto;
+    line-height: 30px;
+}
+
+.elisa-form input,
+.architect-form input
+{
+    padding: 4px 0 4px 10px;
+    text-align: left;
+    margin-left: -5px;
+    border-bottom: 1px solid white;
+}
+
+.elisa-form .experimentLocation,
+.architect-form .experimentLocation{
+    float: none;
+    width: 13em;
+}
+
+.elisa-form .device3,
+.architect-form .device3
+{
+    float: none;
+    width: 8em;
+}
+
+.elisa-form .device1,
+.elisa-form .device2,
+.architect-form .device1,
+.architect-form .device2,
+.architect-form .effective-date,
+.elisa-form .effective-date,
+.elisa-form .period1,
+.elisa-form .period2,
+.elisa-form .period3
+{
+    float: none;
+    width: 7em;
+}
+
+.elisa-form .reagent-name,
+.architect-form .reagent-name{
+    float: none;
+    width: 24em;
+}
+
+
+.elisa-form .manufacturer,
+.elisa-form .batch-no,
+.architect-form .manufacturer,
+.architect-form .batch-no
+{
+    float: none;
+    width: 5em;
+}
+
+.elisa-form .temperature,
+.architect-form .temperature{
+    float: none;
+    width: 2em;
+}
+
+.elisa-form #todays-date,
+.architect-form #todays-date{
+    text-align: right;
+}
+
+.elisa-form #environment,
+.architect-form #environment{
+    display: inline-block;
+    float: right;
+    width: 40%;
+    text-align: right;
+}
+
+.elisa-form .output-button,
+.architect-form .output-button{
+    float: right;
+    width: 7.5em;
+}
+
+.part-form{
+    text-align: left;
+    margin:40px auto;
+    width: 50%;
+    line-height: 35px;
+}
+
+.part-form .input-23{
+    width: 9.5em;
+}
+
+.part-form .input-24{
+    width: 11em;
+}
+
+.part-form .input-25{
+    width: 12em;
+}
+
+.part-form .input-70{
+    width: 24em;
+}
+.part-form .input-75{
+    width: 30em;
+}
